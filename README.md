@@ -1,1 +1,1 @@
-Practice Kotlin with OpenAI API
+Practice Android Kotlin with OpenAI API
