@@ -50,6 +50,7 @@ class MainActivity : AppCompatActivity() {
             }
             false
         })
+
     }
 
     private fun getResponse(query: String){
@@ -70,13 +71,25 @@ class MainActivity : AppCompatActivity() {
                 messageList.add(MessageModal(responseMsg,"bot"))
                 messageAdapter.notifyDataSetChanged()
 
+
+                /*Recycleview Scroll to bottom*/
+                val recyclerView: RecyclerView = findViewById(R.id.idMsg)
+                val layoutManager = LinearLayoutManager(this)
+                recyclerView.layoutManager = layoutManager
+                val adapter = MessageAdapter(messageList)
+                recyclerView.adapter = adapter
+
+                val bottomPosition = adapter.itemCount - 1
+                layoutManager.scrollToPosition(bottomPosition)
+
+
         }, Response.ErrorListener {
             Toast.makeText(applicationContext,"Fail to get response...",Toast.LENGTH_SHORT).show()
         }){
                 override fun getHeaders(): MutableMap<String, String> {
                     val params: MutableMap<String, String> = HashMap()
                     params["Content-Type"] = "application/json"
-                    params["Authorization"] = "Bearer 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"
+                    params["Authorization"] = "Bearer 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"
                     return params
                 }
             }
@@ -95,5 +108,6 @@ class MainActivity : AppCompatActivity() {
             }
         })
         queue.add(postRequest)
+
     }
 }
